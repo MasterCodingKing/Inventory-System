@@ -16,8 +16,10 @@ const inventoryValidation = [
     .notEmpty()
     .withMessage('Department is required'),
   body('pcType')
+    .notEmpty()
+    .withMessage('PC type is required')
     .isIn(['LAPTOP', 'DESKTOP', 'LAPTOP DESKTOP'])
-    .withMessage('Invalid PC type')
+    .withMessage('Invalid PC type. Must be LAPTOP, DESKTOP, or LAPTOP DESKTOP')
 ];
 
 // All routes require authentication

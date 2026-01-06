@@ -30,6 +30,7 @@ export default function Reports() {
 
   const fetchReport = async () => {
     setLoading(true);
+    setReportData(null);
     try {
       let response;
       
@@ -98,7 +99,7 @@ export default function Reports() {
   ];
 
   const renderInventoryReport = () => {
-    if (!reportData) return null;
+    if (!reportData || !reportData.summary) return null;
 
     const statusData = Object.entries(reportData.summary.byStatus || {}).map(([name, value]) => ({
       name,
@@ -240,7 +241,7 @@ export default function Reports() {
   };
 
   const renderBorrowReport = () => {
-    if (!reportData) return null;
+    if (!reportData || !reportData.summary) return null;
 
     const statusData = Object.entries(reportData.summary.byStatus || {}).map(([name, value]) => ({
       name,
@@ -344,7 +345,7 @@ export default function Reports() {
   };
 
   const renderDepartmentReport = () => {
-    if (!reportData) return null;
+    if (!reportData || !reportData.departments) return null;
 
     return (
       <div className="space-y-6">
@@ -406,7 +407,7 @@ export default function Reports() {
   };
 
   const renderActivityReport = () => {
-    if (!reportData) return null;
+    if (!reportData || (!reportData.recentAdditions && !reportData.recentBorrows && !reportData.recentReturns)) return null;
 
     return (
       <div className="space-y-6">

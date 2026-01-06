@@ -129,7 +129,7 @@ exports.getInventoryById = async (req, res, next) => {
 // Create new inventory item
 exports.createInventory = async (req, res, next) => {
   try {
-    const {
+    let {
       fullName,
       department,
       pcName,
@@ -148,6 +148,53 @@ exports.createInventory = async (req, res, next) => {
       assignedTo,
       specifications
     } = req.body;
+
+    // Convert empty strings to null for optional ENUM and text fields
+    if (!purchaseDate || purchaseDate.trim() === '') {
+      purchaseDate = null;
+    }
+    if (!warrantyExpiry || warrantyExpiry.trim() === '') {
+      warrantyExpiry = null;
+    }
+    if (!windowsVersion || windowsVersion.trim() === '') {
+      windowsVersion = null;
+    }
+    if (!microsoftOffice || microsoftOffice.trim() === '') {
+      microsoftOffice = null;
+    }
+    if (!applicationsSystem || applicationsSystem.trim() === '') {
+      applicationsSystem = null;
+    }
+    if (!remarks || remarks.trim() === '') {
+      remarks = null;
+    }
+    if (!serialNumber || serialNumber.trim() === '') {
+      serialNumber = null;
+    }
+    if (!brand || brand.trim() === '') {
+      brand = null;
+    }
+    if (!model || model.trim() === '') {
+      model = null;
+    }
+    if (!pcName || pcName.trim() === '') {
+      pcName = null;
+    }
+
+    // Validate date format if provided
+    if (purchaseDate && isNaN(new Date(purchaseDate).getTime())) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid purchase date format. Please use YYYY-MM-DD format'
+      });
+    }
+
+    if (warrantyExpiry && isNaN(new Date(warrantyExpiry).getTime())) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid warranty expiry date format. Please use YYYY-MM-DD format'
+      });
+    }
 
     // Check for duplicate serial number
     if (serialNumber) {
@@ -202,7 +249,7 @@ exports.updateInventory = async (req, res, next) => {
       });
     }
 
-    const {
+    let {
       fullName,
       department,
       pcName,
@@ -221,6 +268,57 @@ exports.updateInventory = async (req, res, next) => {
       assignedTo,
       specifications
     } = req.body;
+
+    // Convert empty strings to null for optional date fields
+    if (!purchaseDate || purchaseDate.trim() === '') {
+      purchaseDate = null;
+    }
+    if (!warrantyExpiry || warrantyExpiry.trim() === '') {
+      warrantyExpiry = null;
+    }
+
+    // Convert empty strings to null for optional ENUM fields
+    if (!windowsVersion || windowsVersion.trim() === '') {
+      windowsVersion = null;
+    }
+    if (!microsoftOffice || microsoftOffice.trim() === '') {
+      microsoftOffice = null;
+    }
+
+    // Convert empty strings to null for optional text fields
+    if (!applicationsSystem || applicationsSystem.trim() === '') {
+      applicationsSystem = null;
+    }
+    if (!remarks || remarks.trim() === '') {
+      remarks = null;
+    }
+    if (!serialNumber || serialNumber.trim() === '') {
+      serialNumber = null;
+    }
+    if (!brand || brand.trim() === '') {
+      brand = null;
+    }
+    if (!model || model.trim() === '') {
+      model = null;
+    }
+    if (!pcName || pcName.trim() === '') {
+      pcName = null;
+    }
+
+    // Validate date format if provided
+    if (purchaseDate && isNaN(new Date(purchaseDate).getTime())) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid purchase date format. Please use YYYY-MM-DD format'
+      });
+    }
+
+    if (warrantyExpiry && isNaN(new Date(warrantyExpiry).getTime())) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid warranty expiry date format. Please use YYYY-MM-DD format'
+      });
+    }
 
     // Check for duplicate serial number (if changed)
     if (serialNumber && serialNumber !== inventory.serialNumber) {

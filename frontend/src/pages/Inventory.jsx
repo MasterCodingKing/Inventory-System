@@ -186,7 +186,7 @@ export default function Inventory() {
             className="btn btn-primary mt-4 sm:mt-0"
           >
             <PlusIcon className="h-5 w-5 mr-2" />
-            Add New Item
+            Add New Item 
           </button>
         )}
       </div>
@@ -553,6 +553,18 @@ export default function Inventory() {
                 type="date"
                 name="purchaseDate"
                 value={formData.purchaseDate}
+                onChange={handleInputChange}
+                className="input"
+              />
+            </div>
+
+            {/* Warranty Expiry */}
+            <div>
+              <label className="label">Warranty Expiry</label>
+              <input
+                type="date"
+                name="warrantyExpiry"
+                value={formData.warrantyExpiry}
                 onChange={handleInputChange}
                 className="input"
               />
