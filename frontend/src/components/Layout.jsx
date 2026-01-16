@@ -11,6 +11,7 @@ import {
   UsersIcon,
   ArrowRightOnRectangleIcon,
   UserCircleIcon,
+  TrashIcon,
 } from '@heroicons/react/24/outline';
 import { useAuthStore } from '../store/authStore';
 
@@ -18,6 +19,7 @@ const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
   { name: 'Inventory', href: '/inventory', icon: ComputerDesktopIcon },
   { name: 'Borrow/Return', href: '/borrow', icon: ArrowsRightLeftIcon },
+  { name: 'Disposal', href: '/disposal', icon: TrashIcon, roles: ['admin', 'manager'] },
   { name: 'Reports', href: '/reports', icon: ChartBarIcon, roles: ['admin', 'manager'] },
   { name: 'Users', href: '/users', icon: UsersIcon, roles: ['admin'] },
 ];

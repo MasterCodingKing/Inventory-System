@@ -12,6 +12,7 @@ import Inventory from './pages/Inventory';
 import BorrowManagement from './pages/BorrowManagement';
 import Reports from './pages/Reports';
 import Users from './pages/Users';
+import Disposal from './pages/Disposal';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, roles }) => {
@@ -63,6 +64,11 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="borrow" element={<BorrowManagement />} />
+          <Route path="disposal" element={
+            <ProtectedRoute roles={['admin', 'manager']}>
+              <Disposal />
+            </ProtectedRoute>
+          } />
           <Route path="reports" element={
             <ProtectedRoute roles={['admin', 'manager']}>
               <Reports />

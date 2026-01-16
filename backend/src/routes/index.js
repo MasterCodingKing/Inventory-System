@@ -5,12 +5,14 @@ const authRoutes = require('./authRoutes');
 const inventoryRoutes = require('./inventoryRoutes');
 const borrowRoutes = require('./borrowRoutes');
 const reportRoutes = require('./reportRoutes');
+const disposalRoutes = require('./disposalRoutes');
 
 // Mount routes
 router.use('/auth', authRoutes);
 router.use('/inventory', inventoryRoutes);
 router.use('/borrow', borrowRoutes);
 router.use('/reports', reportRoutes);
+router.use('/disposal', disposalRoutes);
 
 // Health check
 router.get('/health', (req, res) => {

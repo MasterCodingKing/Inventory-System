@@ -10,6 +10,11 @@ export function getStatusBadgeClass(status) {
     'Returned': 'badge-success',
     'Overdue': 'badge-danger',
     'Extended': 'badge-info',
+    // Disposal statuses
+    'Pending': 'badge-warning',
+    'Approved': 'badge-info',
+    'Completed': 'badge-success',
+    'Cancelled': 'badge-danger',
   };
   
   return statusClasses[status] || 'badge-secondary';

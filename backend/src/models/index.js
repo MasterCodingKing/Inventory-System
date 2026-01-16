@@ -3,6 +3,7 @@ const User = require('./User');
 const Inventory = require('./Inventory');
 const BorrowRecord = require('./BorrowRecord');
 const Department = require('./Department');
+const Disposal = require('./Disposal');
 
 // Define associations
 
@@ -56,6 +57,36 @@ BorrowRecord.belongsTo(User, {
   as: 'returnProcessor' 
 });
 
+// Inventory - Disposal (One-to-Many)
+Inventory.hasMany(Disposal, { 
+  foreignKey: 'inventory_id', 
+  as: 'disposalRecords' 
+});
+Disposal.belongsTo(Inventory, { 
+  foreignKey: 'inventory_id', 
+  as: 'inventory' 
+});
+
+// User - Disposal (Approved By)
+User.hasMany(Disposal, { 
+  foreignKey: 'approved_by_id', 
+  as: 'approvedDisposals' 
+});
+Disposal.belongsTo(User, { 
+  foreignKey: 'approved_by_id', 
+  as: 'approvedBy' 
+});
+
+// User - Disposal (Disposed By)
+User.hasMany(Disposal, { 
+  foreignKey: 'disposed_by_id', 
+  as: 'processedDisposals' 
+});
+Disposal.belongsTo(User, { 
+  foreignKey: 'disposed_by_id', 
+  as: 'disposedBy' 
+});
+
 // Sync database
 const syncDatabase = async (force = false) => {
   try {
@@ -78,5 +109,6 @@ module.exports = {
   Inventory,
   BorrowRecord,
   Department,
+  Disposal,
   syncDatabase
 };
